@@ -1,7 +1,7 @@
 {
   "name": "juntos-por-la-salud-node-client",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/juntos-por-la-salud-node-client",
   "repository": "https://github.com/JustUtahCoders/juntos-por-la-salud-node-client.git",
   "author": "Joel Denning <joeldenning@gmail.com>",
   "license": "MIT",
