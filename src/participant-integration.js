@@ -127,7 +127,8 @@ exports.createUpsertParticipantBody = (html, client, isCreatingNew) => {
 
   const serializedForm = $('form').serialize() + '&' + extraInputs.join('&')
 
-  fs.writeFileSync(path.resolve(process.cwd(), `params-${new Date().getTime()}.html`), serializedForm.split('&').join('<br><br>'))
+  // Can be helpful for debugging
+  // fs.writeFileSync(path.resolve(process.cwd(), `params-${new Date().getTime()}.html`), serializedForm.split('&').join('<br><br>'))
 
   return serializedForm
 

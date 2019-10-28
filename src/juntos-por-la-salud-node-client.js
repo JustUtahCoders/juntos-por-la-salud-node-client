@@ -71,7 +71,9 @@ async function doUpsert(options, log) {
     });
   }
 
-  fs.writeFileSync(path.resolve(process.cwd(), `participant-${new Date().getTime()}.html`), participantHtml)
+  // Can be helpful for debugging
+  // fs.writeFileSync(path.resolve(process.cwd(), `participant-${new Date().getTime()}.html`), participantHtml)
+
   const upsertParticipantBody = createUpsertParticipantBody(participantHtml, client, isCreatingNew)
   const upsertedHtml = await easyFetch(`https://ventanillasjpls.org/Registro/Persona.aspx?params=${params}`, {
     method: 'POST',
