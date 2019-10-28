@@ -2,7 +2,7 @@ const fetch = require('node-fetch')
 const tough = require('tough-cookie')
 const Cookie = tough.Cookie
 
-module.exports = function createEasyFetch() {
+module.exports = function createEasyFetch(log) {
   const cookieJar = new tough.CookieJar()
   cookieJar.setCookie('language=en-US', 'https://ventanillasjpls.org/', {loose: true}, err => {
     if (err) {
@@ -40,13 +40,13 @@ module.exports = function createEasyFetch() {
 
     lastUrl = url
 
-    console.log('------------------------------------------------------')
-    console.log(`${init.method} ${url}`)
+    log('------------------------------------------------------')
+    log(`${init.method} ${url}`)
     Object.entries(init.headers).forEach(([headerName, headerValue]) => {
-      console.log(`${headerName}: ${headerValue}`)
+      log(`${headerName}: ${headerValue}`)
     })
-    console.log(`\n${init.body || ''}`)
-    console.log('------------------------------------------------------')
+    log(`\n${init.body || ''}`)
+    log('------------------------------------------------------')
 
     return fetch(url, init)
       .then(r => {
@@ -56,28 +56,28 @@ module.exports = function createEasyFetch() {
 
         if (r.ok) {
           return r.text().then(text => {
-            console.log(r.status)
+            log(r.status)
             for (let entry of r.headers.entries()) {
-              console.log(`${entry[0]}: ${entry[1]}`)
+              log(`${entry[0]}: ${entry[1]}`)
             }
             if (init.logBody) {
-              console.log(`\n${text}`)
+              log(`\n${text}`)
             }
-            console.log('------------------------------------------------------')
+            log('------------------------------------------------------')
             return text
           })
         } else if (r.status >= 300 && r.status < 400) {
           if (cookieJar && r.headers.get('Set-Cookie')) {
             cookieJar.setCookieSync(Cookie.parse(r.headers.get('Set-Cookie')), url)
           }
-          console.log('REDIRECTING', r.status, r.headers.get('location'))
+          log('REDIRECTING', r.status, r.headers.get('location'))
           return easyFetch(r.headers.get('location'))
         } else {
           return r.text().then(text => {
             if (init.logBody) {
-              console.log(`\n${text}`)
+              log(`\n${text}`)
             }
-            console.log('------------------------------------------------------')
+            log('------------------------------------------------------')
             let errMessage = 'Unknown Error'
             try {
               errMessage = cheerio.load(text)('title').text()
