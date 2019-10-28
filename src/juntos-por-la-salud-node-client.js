@@ -28,7 +28,7 @@ exports.upsertClient = async function upsertClient(options) {
 }
 
 async function doUpsert(options, log) {
-  const {client, participantId, username, password} = options
+  let {client, participantId, username, password} = options
 
   let currentStep;
 
