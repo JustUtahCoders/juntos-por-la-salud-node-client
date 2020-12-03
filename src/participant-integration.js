@@ -49,6 +49,10 @@ exports.createUpsertParticipantBody = (html, client, isCreatingNew) => {
     extraInput('ctl00$mc$fv$cbEstado$DDD$L$State', '{&quot;CustomCallback&quot;:&quot;&quot;}')
   )
 
+
+  // ZIP
+  $(`[name="ctl00$mc$fv$CodigoPostalTextBox"]`).attr('value', client.homeAddress.zip)
+
   // City
   const cityNumber = getCityNumber(client.homeAddress.state, client.homeAddress.city)
   $(`[name="mc_fv_cbCiudad_VI"]`).attr('value', cityNumber)
