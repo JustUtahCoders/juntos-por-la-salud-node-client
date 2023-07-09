@@ -9,6 +9,6 @@
     "cheerio": "^1.0.0-rc.3",
     "fuse.js": "^3.4.5",
     "node-fetch": "^2.6.1",
-    "tough-cookie": "^3.0.1"
+    "tough-cookie": "^4.1.3"
   }
 }
